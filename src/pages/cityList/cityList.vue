@@ -19,11 +19,10 @@ export default {
     },
     mounted () {
         
+        
+    
     },
     methods: {
-       back(){
-           this.$store.router.back()
-       }
     },
 
 }

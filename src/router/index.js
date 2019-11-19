@@ -12,6 +12,7 @@ import Theater from 'pages/Theater'
 import Shop from 'pages/Shop'
 import News from 'pages/News'
 
+import CityList from 'pages/cityList/cityList'
 
 
 Vue.use(VueRouter)
@@ -65,7 +66,11 @@ const routes = [
       }
     ]
   },
-  
+  {
+    path:'/city',
+    name:'city',
+    component:CityList
+  }
   
     
     

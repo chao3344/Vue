@@ -1,21 +1,21 @@
 <template>
     <div class="c-item"> 
         <div class="coming-time">
-            <span>20日</span>
+            <span>{{movie.rMonth}}月{{movie.rDay}}日</span>
         </div>
         <div class="coming-movie">
             <div class="movie-img">
-                <img src="//imgproxy.mtime.cn/get.ashx?uri=http%3A%2F%2Fimg5.mtime.cn%2Fmt%2F2019%2F08%2F20%2F184519.87782615_1280X720X2.jpg&width=130&height=195&clipType=4" alt="">
+                <img :src="movie.image" alt="">
             </div>
             <div class="movie-text">
                 <dl>
-                    <dt>小Q</dt>
+                    <dt>{{movie.title}}</dt>
                     <dd>
-                        <p class="text-ceil"><b>111</b> 人想看 - 剧情</p>
-                        <p class="text-ceil">导演：罗永昌</p>
+                        <p class="text-ceil"><b>{{movie.wantedCount}}</b> 人想看 - 剧情</p>
+                        <p class="text-ceil">{{movie.director}}</p>
                     </dd>
                 </dl>
-                <div class="btns">
+                <div class="btns" v-if="movie.isVideo">
                     <a href="">
                         <span>预告片</span>
                     </a>
@@ -27,7 +27,10 @@
 
 <script>
 export default {
-    name: 'name'
+    props:{
+        movie:Object,
+        index:Number
+    }
 
 }
 </script>
@@ -35,11 +38,11 @@ export default {
 <style lang="stylus" scoped>
 .c-item
     padding .15rem 0 .14rem 0
-    margin-left .3rem 
+    margin-left .4rem 
     position relative
     .coming-time
         position absolute
-        left -.3rem
+        left -.4rem
         top .12rem
     .coming-movie
         width 100%
@@ -59,12 +62,15 @@ export default {
                 padding-top .005rem
                 dt
                     font-size .18rem
+                    font-weight bold
                 dd
                     padding-top .02rem
                     margin-bottom .05rem
                     .text-ceil
                         font-size .14rem
                         line-height 1.65
+                        b
+                            color #FF8600
             .btns
                 a
                     display inline-block

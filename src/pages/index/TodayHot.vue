@@ -11,6 +11,17 @@
                     <p>1小时前</p>
                 </div>
             </div>
+        </li>
+        <li v-if="news.styleType === 2">
+            <div>
+                <div class="today-img">
+                    <img :src="news.images[0].imgUrl" alt="">
+                </div>
+                <div class="today-title">
+                    <h2>{{news.title}}</h2>
+                    <p>1小时前</p>
+                </div>
+            </div>
         </li>  
         
         <li class="E" v-if="news.styleType === 3">

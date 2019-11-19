@@ -7,6 +7,7 @@ module.exports = {
       .set('pages', path.resolve(__dirname, './src/pages'))
       .set('assets', path.resolve(__dirname, './src/assets'))
       .set('utils', path.resolve(__dirname, './src/utils'))
+      
   },
 
   devServer:{
@@ -21,6 +22,10 @@ module.exports = {
       },
       '/article':{
         target:'https://content-api-m.mtime.cn',
+        changeOrigin:true
+      },
+      '/api':{
+        target:' https://ticket-m.mtime.cn',
         changeOrigin:true
       }
     }

@@ -6,15 +6,18 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isSticky: false,
-    isShow:false
+    CityId:290,
+    CityName:'北京'
   },
   mutations: {
     setSticky(state, payload) {
       state.isSticky = payload
     },
-    setShow(state){
-      state.isShow = !state.isShow
+    setCityid(state,payload){
+      state.CityId = payload.cityid
+      state.CityName = payload.cityname
     }
+    
   },
   actions: {
   },

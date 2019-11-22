@@ -7,6 +7,9 @@ module.exports = {
       .set('pages', path.resolve(__dirname, './src/pages'))
       .set('assets', path.resolve(__dirname, './src/assets'))
       .set('utils', path.resolve(__dirname, './src/utils'))
+      .set('detail', path.resolve(__dirname, './src/pages/Detail'))
+      .set('cinemadetail', path.resolve(__dirname, './src/components/cinemadetail'))
+      .set('news', path.resolve(__dirname, './src/pages/NewItem'))
       
   },
 
@@ -25,7 +28,11 @@ module.exports = {
         changeOrigin:true
       },
       '/api':{
-        target:' https://ticket-m.mtime.cn',
+        target:'https://ticket-m.mtime.cn',
+        changeOrigin:true
+      },
+      '/cinema':{
+        target:'https://ticket-api-m.mtime.cn',
         changeOrigin:true
       }
     }

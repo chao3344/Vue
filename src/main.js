@@ -6,6 +6,7 @@ import store from './store'
 import 'assets/reset.css'
 import './filters/img'
 import './filters/price'
+import './filters/time'
 
 Vue.config.productionTip = false
 

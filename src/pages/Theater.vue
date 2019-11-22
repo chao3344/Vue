@@ -11,7 +11,7 @@
             <div class="T-search-box">
                 <div class="T-search">
                     <router-link tag="div" class="T-city" to="/city">
-                        北京
+                        {{CITYNAME}}
                         <i class="yo-ico">&#xf031;</i>
                     </router-link>
                     <div class="T-input">
@@ -70,11 +70,12 @@ Vue.use(DropdownMenu).use(DropdownItem);
 export default {
     data () {
         return {
+            CITYID:290,
+            CITYNAME:'北京',
             cinemaList:[],
             Changeshow:'',
             value1: 0,
             value2: 'a',
-            // value3:'x',
             option1: [
                 { text: '离我最近', value: 0 },
                 { text: '价格最低', value: 1 }
@@ -101,11 +102,15 @@ export default {
         TheaterItem,
         cityList
     },
+    
     async mounted(){
+        // 更换城市信息
+        this.CITYID = this.$store.state.CityId
+        this.CITYNAME = this.$store.state.CityName
         let result = await get({
             url:'/api/proxy/ticket/onlineCinemasByCity.api',
             params:{
-                locationId:'290',
+                locationId : this.CITYID,
                 _:'1574063120060'
             }
         })
@@ -117,14 +122,15 @@ export default {
             click: true,
             probeType: 2
         })
+
+        // console.log(this.$options.getTime(1574216700,'H'))
     },
     methods: {
         
     },
     watch:{
-        showChange(){
-            this.$store.state.isShow
-        }
+        
+        
     }
 
 }
@@ -145,6 +151,11 @@ export default {
             .T-city
                 font-size .15rem
                 line-height 2.65
+                display flex
+                white-space nowrap
+                i
+                    display inline-block
+                
             .T-input
                 flex 1
                 line-height 2

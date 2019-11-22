@@ -14,6 +14,15 @@ import News from 'pages/News'
 
 import CityList from 'pages/cityList/cityList'
 
+import TheaterDetail from 'detail/TheaterDetail'
+import MovieDetail from 'detail/MovieDetail'
+import Comingmoviedetail from 'detail/Comingmoviedetail'
+
+import New from 'news/new'
+import Trailer from 'news/trailer'
+import Toplist from 'news/toplist'
+import Review from 'news/review'
+
 
 Vue.use(VueRouter)
 
@@ -45,7 +54,31 @@ const routes = [
       {
         path:'news',
         name:'news',
-        component:News
+        component:News,
+        redirect: '/index/news/new',
+        children:[
+          {
+            path: 'new',
+            name: 'new',
+            component: New,
+            
+          },
+          {
+            path: 'trailer',
+            name: 'trailer',
+            component: Trailer,
+          },
+          {
+            path: 'toplist',
+            name: 'toplist',
+            component: Toplist,
+          },
+          {
+            path: 'review',
+            name: 'review',
+            component: Review,
+          },
+        ]
       },
     ]
   },
@@ -70,6 +103,21 @@ const routes = [
     path:'/city',
     name:'city',
     component:CityList
+  },
+  {
+    path:'/theaterdetail',
+    name:'theaterDetail',
+    component:TheaterDetail
+  },
+  {
+    path:'/moviedetail',
+    name:'moviedetail',
+    component:MovieDetail
+  },
+  {
+    path:'/comingmoviedetail',
+    name:'comingmoviedetail',
+    component:Comingmoviedetail
   }
   
     

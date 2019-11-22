@@ -1,12 +1,12 @@
 <template>
     <div class='content-wrap'>
+            
         <div>
-
             <div class="search-box">
-                <div class="search-box-city">
-                    北京
+                <router-link tag="div" class="search-box-city" to="/city">
+                    {{CITYNAME}}
                     <i class="yo-ico">&#xf031;</i>
-                </div>
+                </router-link>
                 <div class="search-box-input">
                     <span>影片/影院/影人，任你搜</span>
                 </div>
@@ -17,54 +17,12 @@
                     <router-link tag="i" to="/index/allmovie/hotmovie" class="yo-ico">&#xf07f;</router-link>
                 </div>
                 <ul class="list-on-movie">
-                    <li class="list-movie">
+                    <router-link tag="li" to="/moviedetail" class="list-movie" v-for="item in movieList">
                         <div class="list-movie-img">
-                            <img src="//imgproxy.mtime.cn/get.ashx?uri=http%3A%2F%2Fimg5.mtime.cn%2Fmt%2F2019%2F11%2F07%2F111315.58628907_1280X720X2.jpg&width=130&height=195&clipType=4" alt="">
+                            <img :src="item.img" alt="">
                         </div>
-                        <p>决战中途岛</p>
-                    </li>
-                    <li class="list-movie">
-                        <div class="list-movie-img">
-                            <img src="//imgproxy.mtime.cn/get.ashx?uri=http%3A%2F%2Fimg5.mtime.cn%2Fmt%2F2019%2F11%2F07%2F111315.58628907_1280X720X2.jpg&width=130&height=195&clipType=4" alt="">
-                        </div>
-                        <p>决战中途岛</p>
-                    </li>
-                    <li class="list-movie">
-                        <div class="list-movie-img">
-                            <img src="//imgproxy.mtime.cn/get.ashx?uri=http%3A%2F%2Fimg5.mtime.cn%2Fmt%2F2019%2F11%2F07%2F111315.58628907_1280X720X2.jpg&width=130&height=195&clipType=4" alt="">
-                        </div>
-                        <p>决战中途岛</p>
-                    </li>
-                    <li class="list-movie">
-                        <div class="list-movie-img">
-                            <img src="//imgproxy.mtime.cn/get.ashx?uri=http%3A%2F%2Fimg5.mtime.cn%2Fmt%2F2019%2F11%2F07%2F111315.58628907_1280X720X2.jpg&width=130&height=195&clipType=4" alt="">
-                        </div>
-                        <p>决战中途岛</p>
-                    </li>
-                    <li class="list-movie">
-                        <div class="list-movie-img">
-                            <img src="//imgproxy.mtime.cn/get.ashx?uri=http%3A%2F%2Fimg5.mtime.cn%2Fmt%2F2019%2F11%2F07%2F111315.58628907_1280X720X2.jpg&width=130&height=195&clipType=4" alt="">
-                        </div>
-                        <p>受益人</p>
-                    </li>
-                    <li class="list-movie">
-                        <div class="list-movie-img">
-                            <img src="//imgproxy.mtime.cn/get.ashx?uri=http%3A%2F%2Fimg5.mtime.cn%2Fmt%2F2019%2F11%2F07%2F111315.58628907_1280X720X2.jpg&width=130&height=195&clipType=4" alt="">
-                        </div>
-                        <p>决战中途岛</p>
-                    </li>
-                    <li class="list-movie">
-                        <div class="list-movie-img">
-                            <img src="//imgproxy.mtime.cn/get.ashx?uri=http%3A%2F%2Fimg5.mtime.cn%2Fmt%2F2019%2F11%2F07%2F111315.58628907_1280X720X2.jpg&width=130&height=195&clipType=4" alt="">
-                        </div>
-                        <p>大约在冬季</p>
-                    </li>
-                    <li class="list-movie">
-                        <div class="list-movie-img">
-                            <img src="//imgproxy.mtime.cn/get.ashx?uri=http%3A%2F%2Fimg5.mtime.cn%2Fmt%2F2019%2F11%2F07%2F111315.58628907_1280X720X2.jpg&width=130&height=195&clipType=4" alt="">
-                        </div>
-                        <p>决战中途岛</p>
-                    </li>
+                        <p>{{item.t}}</p>
+                    </router-link>
                 </ul>
                 <div class="coming-title-box">
                     <h1>即将上映(74部)</h1>
@@ -80,14 +38,7 @@
                     :index="index"
                 ></TodayHot>
 
-                <!-- <TodayHotE
-                    v-for="(news,index) in newsList"
-                    v-if="news.styleType === 3"
-                    :key="news.recommendID"
-                    :news="news"
-                    :index="index"
-                >
-                </TodayHotE> -->
+                
                 
             </div>
         </div>
@@ -96,30 +47,55 @@
 
 <script>
 import TodayHot from './TodayHot'
+import cityList from '../cityList/cityList'
+// import Loading from '../Loading/loading'
 import Vue from 'vue'
 import BScroll from 'better-scroll'
 import { get } from 'utils/http'
+
+
 export default {
     data () {
         return {
-            newsList:[]
+            newsList:[],
+            movieList:[],
+            CITYID:null,
+            CITYNAME:'北京',
         }
     },
     components: {
         TodayHot,
-        
+        cityList
     },
     async mounted(){
+        
+        // 更换城市信息
+        this.CITYID = this.$store.state.CityId
+        this.CITYNAME = this.$store.state.CityName
+
+        
 
         let result = await get({
             url:'/article/originalInfoList.api',
+            params:{
+                locationId : this.CITYID,
+                t:'2019111916152218638',
+                
+            }
             
         })
         this.newsList = result.data.list
-        console.log(this.newsList)
+        // console.log(this.newsList)
 
-
-
+        let Movieresult = await get ({
+            url:'/Service/callback.mi/Showtime/LocationMovies.api',
+            params:{
+                locationId:this.CITYID,
+                t:'2019111916585764945'
+            }
+        })
+        this.movieList = (Movieresult.ms).slice(0,8)
+        // console.log(this.movieList)
 
 
         let bScroll = new BScroll('.content-wrap', {
@@ -127,6 +103,9 @@ export default {
             click: true,
             probeType: 2
         })
+
+        
+        
     }
 
 }
@@ -151,6 +130,7 @@ export default {
             line-height .35rem
             font-size .18rem
             margin-right .15rem
+            marign-top .1rem
         .search-box-input
             flex 1
             line-height .35rem

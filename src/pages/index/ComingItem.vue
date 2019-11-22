@@ -1,5 +1,5 @@
 <template>
-    <div class="c-item"> 
+    <router-link tag="div" to="/comingmoviedetail" class="c-item"> 
         <div class="coming-time">
             <span>{{movie.rMonth}}月{{movie.rDay}}日</span>
         </div>
@@ -22,7 +22,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </router-link>
 </template>
 
 <script>

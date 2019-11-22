@@ -1,12 +1,13 @@
 <template>
     <div class="T-item">
-        <li class="T-li">
+        <li class="T-li" :id="cinema.cinemaId" @click="Godetail(cinema.cinemaId)">
             <dl>
                 <dt class="T-tit">
                     <p class="T-title"><span>{{cinema.cinameName}}</span></p>
                     <p class="T-price" v-if="cinema.minPrice != 0">
                         <b>{{cinema.minPrice | price(2)}}</b><span>元起</span>
                     </p>
+                    
                 </dt>
                 <dd class="T-ad">
                     <p>{{cinema.address}}</p>
@@ -35,8 +36,18 @@ export default {
         cinema:Object,
         index:Number
     },
+    methods: {
+        
+        // 点击后把影院id通过路由传入
+        Godetail(id){
+            console.log(this.$route)
+            let date = new Date
+            let day = date.getTime()
+            console.log(day)
+            this.$router.push(`/theaterdetail?id=${id}&`)
+        }
+    },
     
-
 }
 </script>
 

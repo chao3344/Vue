@@ -7,7 +7,7 @@
                 </div>
                 <div class="today-title">
                     <h2>{{item.title}}</h2>
-                    <p>1小时前</p>
+                    <p>{{item.publishTime | time('Hour')}}小时前</p>
                 </div>
             </div>
         </li>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="today-title">
                     <h2>{{item.title}}</h2>
-                    <p>1小时前</p>
+                    <p>{{item.publishTime | time('Hour')}}小时前</p>
                 </div>
             </div>
         </li>
@@ -34,7 +34,7 @@
                         <img :src="item.images[2].url1" alt="">
                     </div>
                     <div class="show-time">
-                        <p>1小时前</p>
+                        <p>{{item.publishTime | time('Hour')}}小时前</p>
                     </div>
                 </div>
             </li>
@@ -46,7 +46,6 @@
 export default {
     props:{
         item:Object,
-        
     }
 
 }

@@ -21,6 +21,8 @@ Vue.filter('time',(data,type)=>{
         return `${Y}-${Mon}-${Day}`
     }else if(type=="H"){
         return `${H}:${Min}`
+    }else if(type=="Hour"){
+        return `${H}`
     }else{
         return `${Y}-${Mon}-${Day} ${H}:${Min}:${S}`
     }

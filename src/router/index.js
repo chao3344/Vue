@@ -22,6 +22,7 @@ import New from 'news/new'
 import Trailer from 'news/trailer'
 import Toplist from 'news/toplist'
 import Review from 'news/review'
+import TopDetail from '../pages/NewItem/Topdetail'
 
 
 Vue.use(VueRouter)
@@ -78,6 +79,11 @@ const routes = [
             name: 'review',
             component: Review,
           },
+          {
+            path: 'topdetail',
+            name: 'topdetail',
+            component: TopDetail,
+          }
         ]
       },
     ]

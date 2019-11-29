@@ -3,10 +3,10 @@
         <div>
 
             <div class="big-pic">
-                <a title="《复仇者联盟4》重要彩蛋全解析">
-                    <img src="//imgproxy.mtime.cn/get.ashx?uri=http%3A%2F%2Fimg5.mtime.cn%2Fmg%2F2019%2F07%2F18%2F102211.29411290.jpg"
+                <a :title="TitleList.title">
+                    <img :src="TitleList.imageUrl"
                         class="m_img " alt="《复仇者联盟4》重要彩蛋全解析">
-                    <h2><b>《复仇者联盟4》重要彩蛋全解析</b></h2>
+                    <h2><b>{{TitleList.title}}</b></h2>
                 </a>
             </div>
     
@@ -32,10 +32,23 @@ export default {
     data(){
         return{
             pageindex:1,
-            NewList:[]
+            NewList:[],
+            ComingList:[],
+            TitleList:[]
         }
     },
     async mounted(){
+
+        // 获取头部大新闻
+        let Titleresult = await get ({
+            url:'/Service/callback.mi/PageSubArea/GetRecommendationIndexInfo.api',
+            params:{
+                t:'2019112221395688647',
+            }
+        })
+        this.TitleList = Titleresult.news
+
+        // 获取列表中的新闻
         let result = await get ({
             url:'/Service/callback.mi/News/NewsList.api',
             params:{
@@ -44,12 +57,36 @@ export default {
             }
         })
         this.NewList = result.newsList
-        console.log(this.NewList)
+        // console.log(this.NewList)
 
         let bScroll = new BScroll('.new-box',{
             pullUpLoad: true,
             click: true,
             probeType: 2
+        })
+
+        bScroll.on('pullingUp', async() => {
+            this.pageindex++
+            let result = await get({
+                url: '/Service/callback.mi/News/NewsList.api',
+                params: {
+                    t:'2019112221245385514',
+                    pageIndex:this.pageindex
+                }
+            })
+            this.ComingList = result.newsList
+            this.NewList = [
+                ...this.NewList,
+                ...this.ComingList
+            ]
+            // console.log(this.NewList)
+
+            // 等待下一步执行
+            await this.$nextTick()
+            bScroll.refresh()
+            
+
+            bScroll.finishPullUp()
         })
 
     },
